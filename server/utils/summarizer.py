@@ -1,6 +1,6 @@
 from libvoikko import Voikko
 
-Voikko.setLibrarySearchPath("/Voikko")
+#Voikko.setLibrarySearchPath("/Voikko")
 
 lemmatizer = Voikko(u"fi")
 
