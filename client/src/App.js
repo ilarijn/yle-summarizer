@@ -39,6 +39,12 @@ const App = () => {
     let tokenizedSentences = []
     sentences.forEach(sentence => tokenizedSentences.push(tokenizeFinnish(sentence)))
 
+    tokenizedSentences.forEach(sentence => {
+      sentence.forEach(word => {
+        console.log(stemFinnish(word))
+      })
+    })
+
     setfeedItems(modifiedfeedItems)
   }
 

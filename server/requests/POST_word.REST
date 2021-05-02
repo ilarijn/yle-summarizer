@@ -1,0 +1,5 @@
+POST http://localhost:5000/api/ Content-Type: application/json Authorization: bearer yJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Imtla2UiLCJpZCI6IjVmOGFhYWZkOGIwOWI0MWQzOGQ2MGFmZCIsImlhdCI6MTYwMjkyNzk2NH0.0SZkxkzS6OluKI0TWJPdxunje3Zs7XwZm0WQqtF2K80
+
+{
+    "data": "saunassa"
+}
