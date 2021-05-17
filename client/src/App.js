@@ -26,25 +26,14 @@ const App = () => {
   }
 
   const summarize = (id) => {
-    const target = feedItems.find(item => item.guid === id)
-    const summary = stripHtml(target.content)
+    const targetText = feedItems.find(item => item.guid === id)
+    const summary = stripHtml(targetText.content)
     const modifiedfeedItems = feedItems.map(item => (
       item.guid === id && item.show === true ?
         { ...item, show: true, summarize: true, summary: summary }
         :
         { ...item, show: false, summarize: false }
     ))
-
-    let sentences = splitSentences(summary)
-    let tokenizedSentences = []
-    sentences.forEach(sentence => tokenizedSentences.push(tokenizeFinnish(sentence)))
-
-    tokenizedSentences.forEach(sentence => {
-      sentence.forEach(word => {
-        console.log(stemFinnish(word))
-      })
-    })
-
     setfeedItems(modifiedfeedItems)
   }
 
@@ -54,8 +43,8 @@ const App = () => {
   }
 
   const postTextFromFeed = async (id) => {
-    const target = feedItems.find(item => item.guid === id)
-    const text = stripHtml(target.content)
+    const targetText = feedItems.find(item => item.guid === id)
+    const text = stripHtml(targetText.content)
     const res = await postText(text)
     console.log(res)
   }
