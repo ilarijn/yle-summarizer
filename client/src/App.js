@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import './App.css'
-import { getFeed } from './axios/feeds'
+import { getFeed, getStem, postText } from './axios/feeds'
 import { guessLanguage, stripHtml, tokenizeFinnish, splitSentences, stemFinnish, stemWord, normalizeFinnish } from './utils/summarizer'
 import Button from 'react-bootstrap/Button';
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -48,6 +48,18 @@ const App = () => {
     setfeedItems(modifiedfeedItems)
   }
 
+  const stemTest = async (word) => {
+    const stemmed = await getStem(word)
+    console.log(stemmed.data)
+  }
+
+  const postTextFromFeed = async (id) => {
+    const target = feedItems.find(item => item.guid === id)
+    const text = stripHtml(target.content)
+    const res = await postText(text)
+    console.log(res)
+  }
+
   return (
     <div className="App">
       <header className="App-header">
@@ -60,7 +72,7 @@ const App = () => {
           (<div className="feedItemShow" key={item.guid}>
             <Button variant="primary" size="sm" className="mr-2" onClick={() => showFullText(item.guid)}>
               Piilota</Button>
-            <Button variant="success" size="sm" className="mr-2" onClick={() => summarize(item.guid)}>
+            <Button variant="success" size="sm" className="mr-2" onClick={async () => await postTextFromFeed(item.guid)}>
               Tiivistä</Button>
             <br />
             <br />

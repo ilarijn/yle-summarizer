@@ -2,5 +2,5 @@ POST http://localhost:5000/api
 Content-Type: application/json 
 
 {
-    "data": "saunassa"
+    "data": "Pekan"
 }
