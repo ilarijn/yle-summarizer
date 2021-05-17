@@ -23,13 +23,8 @@ yarn-debug.log*
 yarn-error.log*
 
 # python
-*/venv/
-*/venv/**
 venv/
-**/venv
-*/venv
 **/__pycache__
-venv
 
 # vscode
 .vscode/
