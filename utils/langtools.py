@@ -2,7 +2,8 @@ import nltk
 from nltk.stem.snowball import SnowballStemmer
 from nltk.tokenize import word_tokenize, sent_tokenize
 
-nltk.download('punkt')
+#nltk imports for Heroku in nltk.txt
+#nltk.download('punkt')
 
 stemmer = SnowballStemmer("finnish")
 
