@@ -16,11 +16,6 @@ export const getStem = async (word) => {
 }
 
 export const postText = async (text) => {
-  const res = await axios.post(`${LANGSERVER_URL}/post_text`, { data: text })
-  return res
-}
-
-export const summarize = async (text) => {
   const res = await axios.post(`${LANGSERVER_URL}/summarize`, { data: text })
   return res
 }

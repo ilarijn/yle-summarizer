@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react"
 import "./App.css"
-import { getFeed, getStem, postText, summarize } from "./axios/feeds"
-import { stripHtml } from "./utils/summarizer"
+import { getFeed } from "./axios/feeds"
 import NewsItem from "./NewsItem"
 
 const App = () => {
@@ -21,39 +20,12 @@ const App = () => {
     fetchFeed()
   }, [])
 
-  const showFullText = (id) => {
-    const modifiednewsItems = newsItems.map((item) =>
-      item.guid === id && item.show === false
-        ? { ...item, show: true }
-        : { ...item, show: false, summarize: false }
-    )
-    setnewsItems(modifiednewsItems)
-  }
-
-  const stemTest = async (word) => {
-    const stemmed = await getStem(word)
-    console.log(stemmed.data)
-  }
-
-  const handleSummarize = async (text) => {
-    console.log("summarizing")
-    const processed = stripHtml(text)
-    const summary = await summarize(processed)
-    console.log(summary)
-  }
-
-  const postTextFromFeed = async (id) => {
-    const targetText = newsItems.find((item) => item.guid === id)
-    const text = stripHtml(targetText.content)
-    const res = await postText(text)
-    console.log(res)
-  }
   return (
     <div>
       <h1>Ylen uutiset</h1>
       <br />
       {newsItems.map((item, index) => (
-        <NewsItem news={item} index={index} summarize={handleSummarize} />
+        <NewsItem news={item} index={index} />
       ))}
     </div>
   )

@@ -3,8 +3,21 @@ import Col from "react-bootstrap/Col"
 import Accordion from "react-bootstrap/Accordion"
 import Card from "react-bootstrap/Card"
 import Button from "react-bootstrap/Button"
+import Spinner from "react-bootstrap/Spinner"
+import { postText } from "./axios/feeds"
+import { stripHtml } from "./utils/summarizer"
+import { useState } from "react"
 
-const NewsItem = ({ news, index, summarize }) => {
+const NewsItem = ({ news, index }) => {
+  const [summary, setSummary] = useState(null)
+
+  const textContent = stripHtml(news.content)
+
+  const summarize = async (text) => {
+    const response = await postText(text)
+    setSummary(response.data)
+  }
+
   return (
     <Accordion className="mb-2" key={index}>
       <Card>
@@ -12,7 +25,7 @@ const NewsItem = ({ news, index, summarize }) => {
           as={Button}
           variant="text"
           eventKey="0"
-          onClick={() => summarize(news.content)}
+          onClick={() => summarize(textContent)}
         >
           <Row>
             <Col xs={12} className="text-left">
@@ -26,10 +39,11 @@ const NewsItem = ({ news, index, summarize }) => {
             <Row>
               <Col xs={12} className="text-left">
                 <Card.Text className="pt-2">
-                  <p
-                    className="fullText"
-                    dangerouslySetInnerHTML={{ __html: news.content }}
-                  ></p>
+                  {summary ? (
+                    <Spinner animation="border" />
+                  ) : (
+                    <p className="fullText">{summary}</p>
+                  )}
                 </Card.Text>
               </Col>
             </Row>
