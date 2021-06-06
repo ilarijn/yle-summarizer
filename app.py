@@ -19,6 +19,7 @@ def Welcome():
 def handle():
     request_json = request.get_json()
     text = request_json.get('data')
+    print(text)
     summary = summarize(text)
     print(summary)
     return summary
