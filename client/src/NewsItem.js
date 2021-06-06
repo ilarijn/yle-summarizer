@@ -4,11 +4,16 @@ import Accordion from "react-bootstrap/Accordion"
 import Card from "react-bootstrap/Card"
 import Button from "react-bootstrap/Button"
 
-const NewsItem = (news, index) => {
+const NewsItem = ({ news, index, summarize }) => {
   return (
     <Accordion className="mb-2" key={index}>
       <Card>
-        <Accordion.Toggle as={Button} variant="text" eventKey="0">
+        <Accordion.Toggle
+          as={Button}
+          variant="text"
+          eventKey="0"
+          onClick={() => summarize(news.content)}
+        >
           <Row>
             <Col xs={12} className="text-left">
               <Card.Title>{news.title}</Card.Title>
