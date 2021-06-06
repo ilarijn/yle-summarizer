@@ -16,4 +16,4 @@ jobs:
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: "yle-summarizer"
-          heroku_email: "ilari.junnonen@iki.fi"
+          heroku_email: ${{secrets.HEROKU_EMAIL}}
