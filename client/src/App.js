@@ -36,6 +36,7 @@ const App = () => {
   }
 
   const handleSummarize = async (text) => {
+    console.log("summarizing")
     const processed = stripHtml(text)
     const summary = await summarize(processed)
     console.log(summary)
