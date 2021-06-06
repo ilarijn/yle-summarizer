@@ -15,9 +15,7 @@ const NewsItem = ({ news, index }) => {
 
   const summarize = async (text) => {
     console.log("summarizing")
-    const response = await postText(text)
-    console.log(response)
-    setSummary(response.data)
+    setSummary(await postText(text).data)
   }
 
   return (
