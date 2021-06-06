@@ -1,6 +1,6 @@
-POST http://localhost:5000/api
+POST http://yle-summarizer.herokuapp.com/api/summarize
 Content-Type: application/json 
 
 {
-    "data": "Pekan"
+    "data": "21-vuotiaana hän oli kolmatta kertaa katkaisuhoidossa. Vieroitusoireiden takia hän ei saanut nukuttua ja käyttäytyi itsetuhoisesti. Kesken katkon hoitohenkilökunta totesi, että he eivät voi taata potilaan turvallisuutta ja lähettivät tämän sairaalaan. Päivystyksessä Katariina esitti kaiken olevan hyvin. Hän sai rauhoittavia ja junalipun takaisin kotiseudulle. Matkalla hän huuhtoi lääkkeet alas viinalla ja suuntasi suoraan tutun diilerin luo."
 }

@@ -20,7 +20,7 @@ def handle():
     request_json = request.get_json()
     text = request_json.get('data')
     print(text)
-    summary = summarize(text)
+    summary = summarize(text, 50)
     print(summary)
     return summary
 
