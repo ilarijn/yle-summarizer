@@ -1,21 +1,15 @@
-import { useState, useEffect } from "react"
 import "./App.css"
+import { useState, useEffect } from "react"
 import { getFeed } from "./axios/feeds"
 import NewsItem from "./NewsItem"
 
 const App = () => {
-  const [newsItems, setnewsItems] = useState([])
+  const [newsItems, setNewsItems] = useState([])
 
   useEffect(() => {
     async function fetchFeed() {
       const response = await getFeed()
-      const result = response.items.map((item) => ({
-        ...item,
-        show: false,
-        summarize: false,
-        summary: ""
-      }))
-      setnewsItems(result)
+      setNewsItems(response.items)
     }
     fetchFeed()
   }, [])

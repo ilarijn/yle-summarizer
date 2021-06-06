@@ -10,11 +10,6 @@ export const getFeed = async () => {
   return res.data
 }
 
-export const getStem = async (word) => {
-  const res = await axios.post(`${LANGSERVER_URL}/stem`, { data: word })
-  return res
-}
-
 export const postText = async (text) => {
   const res = await axios.post(`${LANGSERVER_URL}/summarize`, { data: text })
   return res

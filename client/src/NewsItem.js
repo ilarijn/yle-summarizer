@@ -5,7 +5,7 @@ import Card from "react-bootstrap/Card"
 import Button from "react-bootstrap/Button"
 import Spinner from "react-bootstrap/Spinner"
 import { postText } from "./axios/feeds"
-import { stripHtml } from "./utils/summarizer"
+import { stripHtml } from "./utils/parsing"
 import { useState } from "react"
 
 const NewsItem = ({ news, index }) => {
@@ -14,9 +14,10 @@ const NewsItem = ({ news, index }) => {
   const textContent = stripHtml(news.content)
 
   const summarize = async (text) => {
-    const response = await postText(text)
-    console.log(response.data)
-    setSummary(response.data)
+    if (!summary) {
+      const response = await postText(text)
+      setSummary(response.data)
+    }
   }
 
   return (
@@ -41,9 +42,9 @@ const NewsItem = ({ news, index }) => {
               <Col xs={12} className="text-left">
                 <Card.Text className="pt-2">
                   {summary ? (
-                    <Spinner animation="border" />
-                  ) : (
                     <p className="fullText">{summary}</p>
+                  ) : (
+                    <Spinner animation="border" />
                   )}
                 </Card.Text>
               </Col>
