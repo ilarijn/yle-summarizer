@@ -14,8 +14,9 @@ const NewsItem = ({ news, index }) => {
   const textContent = stripHtml(news.content)
 
   const summarize = async (text) => {
-    console.log("summarizing")
-    setSummary(await postText(text).data)
+    const response = await postText(text)
+    console.log(response.data)
+    setSummary(response.data)
   }
 
   return (
