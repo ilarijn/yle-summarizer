@@ -26,7 +26,7 @@ const NewsItem = ({ news, index }) => {
           as={Button}
           variant="text"
           eventKey="0"
-          onClick={() => summarize(textContent)}
+          onClick={async () => summarize(textContent)}
         >
           <Row>
             <Col xs={12} className="text-left">
