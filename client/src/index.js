@@ -14,9 +14,7 @@ ReactDOM.render(
         sm={{ span: 10, offset: 1 }}
         style={{ backgroundColor: "white", marginTop: 50, marginBottom: 50 }}
       >
-        <React.StrictMode>
-          <App />
-        </React.StrictMode>
+        <App />
       </Col>
     </Row>
   </Container>,

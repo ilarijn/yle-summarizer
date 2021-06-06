@@ -19,7 +19,7 @@ const App = () => {
       <h1>Ylen uutiset</h1>
       <br />
       {newsItems.map((item, index) => (
-        <NewsItem news={item} index={index} />
+        <NewsItem news={item} key={index} />
       ))}
     </div>
   )

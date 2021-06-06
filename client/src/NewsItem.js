@@ -8,7 +8,7 @@ import { postText } from "./axios/feeds"
 import { stripHtml } from "./utils/parsing"
 import { useState } from "react"
 
-const NewsItem = ({ news, index }) => {
+const NewsItem = ({ news }) => {
   const [summary, setSummary] = useState(null)
 
   const textContent = stripHtml(news.content)
@@ -21,7 +21,7 @@ const NewsItem = ({ news, index }) => {
   }
 
   return (
-    <Accordion className="mb-2" key={index}>
+    <Accordion className="mb-2">
       <Card>
         <Accordion.Toggle
           as={Button}
@@ -42,7 +42,7 @@ const NewsItem = ({ news, index }) => {
               <Col xs={12} className="text-left">
                 <Card.Text className="pt-2">
                   {summary ? (
-                    <p className="fullText">{summary}</p>
+                    <div className="fullText">{summary}</div>
                   ) : (
                     <Spinner animation="border" />
                   )}
