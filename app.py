@@ -12,7 +12,7 @@ cors = CORS(app)
 def handle():
     request_json = request.get_json()
     text = request_json.get('data')
-    summary = summarize(text, 75)
+    summary = summarize(text, 90)
     return summary
 
 
