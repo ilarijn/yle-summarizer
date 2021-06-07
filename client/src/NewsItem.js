@@ -5,7 +5,7 @@ import Card from "react-bootstrap/Card"
 import Button from "react-bootstrap/Button"
 import Spinner from "react-bootstrap/Spinner"
 import { postText } from "./axios/feeds"
-import { stripHtml } from "./utils/parsing"
+import { parseHtml } from "./utils/parsing"
 import { useState } from "react"
 
 const NewsItem = ({ news }) => {
@@ -13,14 +13,15 @@ const NewsItem = ({ news }) => {
   const [showSummary, setShowSummary] = useState(true)
   const [fullText, setFullText] = useState(news.content)
 
-  const textContent = stripHtml(news.content)
-
-  const summarize = async (text) => {
-    if (text === "") {
+  const summarize = async () => {
+    const textContent = parseHtml(news.content)
+    console.log(textContent)
+    if (textContent === "") {
+      console.log("was an empty string")
       setSummary("Katso koko teksti.")
     }
     if (!summary) {
-      const response = await postText(text)
+      const response = await postText(textContent)
       setSummary(response.data)
     }
   }
@@ -32,7 +33,7 @@ const NewsItem = ({ news }) => {
           as={Button}
           variant="text"
           eventKey="0"
-          onClick={async () => summarize(textContent)}
+          onClick={async () => summarize()}
         >
           <Row>
             <Col xs={12} className="text-left">

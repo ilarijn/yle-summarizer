@@ -1,4 +1,8 @@
-export const stripHtml = (html) => {
+export const parseHtml = (html) => {
+  if (html.match("^[A-Za-z]")) {
+    return html
+  }
+
   let divElement = document.createElement("div")
   divElement.innerHTML = html
 
@@ -9,13 +13,11 @@ export const stripHtml = (html) => {
   let paragraphs = ""
 
   for (let i = 0; i < yleParagraphs.length; i++) {
-    paragraphs += yleParagraphs[i].innerHTML + " "
+    let paragraph = yleParagraphs[i].innerText
+    if (paragraph.slice(-1) === ".") {
+      paragraphs += paragraph + " "
+    }
   }
 
-  let divElement2 = document.createElement("div")
-  divElement2.innerHTML = paragraphs
-
-  let cleaned = divElement2.textContent || divElement2.innerText || ""
-
-  return cleaned
+  return paragraphs
 }
