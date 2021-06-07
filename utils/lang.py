@@ -5,11 +5,6 @@ from collections import Counter
 from functools import reduce
 import operator
 
-# nltk imports for Heroku in nltk.txt
-# nltk.download("punkt")
-# nltk.download("corpus")
-
-
 stemmer = SnowballStemmer("finnish")
 
 stop_words = stopwords.words("finnish")
@@ -32,6 +27,7 @@ def preprocess(text):
     stop_words.append(",")
     stop_words.append("–")
     stop_words.append("/")
+    stop_words.append(":")
 
     sentences = sent_tokenize(text)
 
@@ -48,15 +44,21 @@ def summarize(text, length):
 
     processed_text = preprocess(text)
 
+    frequencies = {}
+
     # Token frequencies
-    c = Counter()
-    for sent in processed_text:
-        c += Counter(sent)
+    for sentence in processed_text:
+        for word in sentence:
+            if word not in frequencies:
+                frequencies[word] = 1.0
+            else:
+                frequencies[word] += 1.0
 
     # Total number of tokens
-    N = float(sum(c.values()))
+    N = float(sum(frequencies.values()))
 
-    probs = {w: cnt / N for w, cnt in c.items()}
+    probabilities = {word: freq / N for word,
+                     freq in sorted(frequencies.items(), key=lambda item: item[1], reverse=True)}
 
     sentences = sent_tokenize(text)
 
@@ -64,25 +66,28 @@ def summarize(text, length):
 
     while len(sentences) > 0 and wordcount(summary) < length:
 
-        max_prob, max_sent = 0.0, None
-        max_word = max(probs.items(), key=operator.itemgetter(1))[0]
+        max_prob, max_sentence = 0.0, None
+        max_word = max(probabilities.items(), key=operator.itemgetter(1))[0]
+        print(max_word)
 
         for i, sent in enumerate(sentences):
 
             prob = reduce(lambda x, y: x + y,
-                          [probs[w] for w in processed_text[i]])
+                          [probabilities[w] for w in processed_text[i]])
 
-            stemmed_sent = [stemmer.stem(w) for w in word_tokenize(sent)]
+            stemmed_sentence = [stemmer.stem(w) for w in word_tokenize(sent)]
 
-            if max_prob < prob and max_word in stemmed_sent:
-                max_prob, max_sent = prob, sent
+            if max_prob < prob and max_word in stemmed_sentence:
+                max_prob, max_sentence = prob, sent
 
-        summary.append(max_sent)
-        sentences.remove(max_sent)
+        summary.append(max_sentence)
+        sentences.remove(max_sentence)
         stemmed_max = [stemmer.stem(w.lower()) for w in word_tokenize(
-            max_sent) if w.lower() not in stop_words]
+            max_sentence) if w.lower() not in stop_words]
 
         for w in stemmed_max:
-            probs[w] = probs[w] ** 2
+            probabilities[w] = probabilities[w] ** 2
+
+    # Account for sentence position
 
     return " ".join(summary)

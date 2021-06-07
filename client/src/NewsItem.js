@@ -14,6 +14,7 @@ const NewsItem = ({ news }) => {
   const textContent = stripHtml(news.content)
 
   const summarize = async (text) => {
+    console.log(text)
     if (!summary) {
       const response = await postText(text)
       setSummary(response.data)
@@ -21,8 +22,8 @@ const NewsItem = ({ news }) => {
   }
 
   return (
-    <Accordion className="mb-2">
-      <Card>
+    <Accordion className="mb-2 feed-item">
+      <Card border="secondary" style={{ borderWidth: 1 }}>
         <Accordion.Toggle
           as={Button}
           variant="text"
@@ -31,8 +32,8 @@ const NewsItem = ({ news }) => {
         >
           <Row>
             <Col xs={12} className="text-left">
-              <Card.Title>{news.title}</Card.Title>
-              <Card.Subtitle className="mb-2 text-muted">
+              <Card.Title className="news-title">{news.title}</Card.Title>
+              <Card.Subtitle className="mb-2 text-muted news-title">
                 {news.pubDate}
               </Card.Subtitle>
             </Col>
@@ -42,7 +43,7 @@ const NewsItem = ({ news }) => {
               <Col xs={12} className="text-left">
                 <Card.Text className="pt-2">
                   {summary ? (
-                    <div className="fullText">{summary}</div>
+                    <div className="full-text">{summary}</div>
                   ) : (
                     <Spinner animation="border" />
                   )}

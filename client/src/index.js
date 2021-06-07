@@ -11,8 +11,9 @@ ReactDOM.render(
     <Row className="vh-100">
       <Col
         xs={12}
-        sm={{ span: 10, offset: 1 }}
-        style={{ backgroundColor: "white", marginTop: 50, marginBottom: 50 }}
+        sm={{ span: 8, offset: 2 }}
+        style={{ marginBottom: 50 }}
+        className="main-container"
       >
         <App />
       </Col>

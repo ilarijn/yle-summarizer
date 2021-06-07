@@ -8,6 +8,7 @@
 # testing
 */coverage
 /utils/*.txt
+/sandbox
 
 # production
 #*/build
