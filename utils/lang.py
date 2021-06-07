@@ -1,7 +1,6 @@
 from nltk.corpus import stopwords
 from nltk.stem.snowball import SnowballStemmer
 from nltk.tokenize import word_tokenize, sent_tokenize
-from collections import Counter
 from functools import reduce
 import operator
 
@@ -76,6 +75,7 @@ def summarize(text, length):
 
             stemmed_sentence = [stemmer.stem(w) for w in word_tokenize(sent)]
 
+            # Highest scoring sentence must also contain current most probable word
             if max_prob < prob and max_word in stemmed_sentence:
                 max_prob, max_sentence = prob, [sent, i]
 
@@ -87,7 +87,7 @@ def summarize(text, length):
         for w in stemmed_max:
             probabilities[w] = probabilities[w] ** 2
 
-    # Account for sentence position
+    # Reorder sentences according to original order of occurrence
     result = [sentence for sentence, index in sorted(
         summary.items(), key=lambda item: item[1])]
 

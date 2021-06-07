@@ -16,7 +16,9 @@ const NewsItem = ({ news }) => {
   const textContent = stripHtml(news.content)
 
   const summarize = async (text) => {
-    console.log(text)
+    if (text === "") {
+      setSummary("Katso koko teksti.")
+    }
     if (!summary) {
       const response = await postText(text)
       setSummary(response.data)

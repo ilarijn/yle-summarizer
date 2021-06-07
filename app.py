@@ -1,17 +1,10 @@
 from flask_cors import CORS, cross_origin
-from flask import Flask, render_template, send_from_directory, request, jsonify, make_response
-from nltk.tokenize import sent_tokenize
+from flask import Flask, send_from_directory, request
 from utils.lang import summarize
-import os
+
 
 app = Flask(__name__, static_folder='client/build', static_url_path='')
 cors = CORS(app)
-
-
-@app.route('/api', methods=["GET"])
-@cross_origin()
-def Welcome():
-    return "Welcome to the API!!!"
 
 
 @app.route('/api/summarize', methods=["POST"])
@@ -20,7 +13,6 @@ def handle():
     request_json = request.get_json()
     text = request_json.get('data')
     summary = summarize(text, 75)
-    print(summary)
     return summary
 
 
