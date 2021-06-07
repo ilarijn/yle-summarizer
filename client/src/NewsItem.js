@@ -10,6 +10,8 @@ import { useState } from "react"
 
 const NewsItem = ({ news }) => {
   const [summary, setSummary] = useState(null)
+  const [showSummary, setShowSummary] = useState(true)
+  const [fullText, setFullText] = useState(news.content)
 
   const textContent = stripHtml(news.content)
 
@@ -34,19 +36,44 @@ const NewsItem = ({ news }) => {
             <Col xs={12} className="text-left">
               <Card.Title className="news-title">{news.title}</Card.Title>
               <Card.Subtitle className="mb-2 text-muted news-title">
-                {news.pubDate}
+                {news.pubDate} <br />
               </Card.Subtitle>
             </Col>
           </Row>
           <Accordion.Collapse eventKey="0">
             <Row>
               <Col xs={12} className="text-left">
+                <Button
+                  variant="dark"
+                  size="sm"
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    setShowSummary(!showSummary)
+                  }}
+                >
+                  {showSummary ? "Näytä koko teksti" : "Näytä tiivistelmä"}
+                </Button>
                 <Card.Text className="pt-2">
-                  {summary ? (
-                    <div className="full-text">{summary}</div>
-                  ) : (
-                    <Spinner animation="border" />
-                  )}
+                  {(() => {
+                    if (summary)
+                      if (showSummary)
+                        return <div className="full-text">{summary}</div>
+                      else
+                        return (
+                          <div
+                            className="full-text"
+                            dangerouslySetInnerHTML={{ __html: fullText }}
+                          />
+                        )
+                    else if (showSummary) return <Spinner animation="border" />
+                    else
+                      return (
+                        <div
+                          className="full-text"
+                          dangerouslySetInnerHTML={{ __html: fullText }}
+                        />
+                      )
+                  })()}
                 </Card.Text>
               </Col>
             </Row>
