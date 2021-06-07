@@ -1,6 +1,5 @@
 import React from "react"
 import ReactDOM from "react-dom"
-import "./index.css"
 import App from "./App"
 import Container from "react-bootstrap/Container"
 import Row from "react-bootstrap/Row"
