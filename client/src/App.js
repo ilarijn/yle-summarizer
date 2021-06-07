@@ -10,7 +10,6 @@ const App = () => {
     async function fetchFeed() {
       const response = await getFeed()
       setNewsItems(response.items)
-      console.log(response.items)
     }
     fetchFeed()
   }, [])

@@ -15,11 +15,6 @@ const NewsItem = ({ news }) => {
 
   const summarize = async () => {
     const textContent = parseHtml(news.content)
-    console.log(textContent)
-    if (textContent === "") {
-      console.log("was an empty string")
-      setSummary("Katso koko teksti.")
-    }
     if (!summary) {
       const response = await postText(textContent)
       setSummary(response.data)
