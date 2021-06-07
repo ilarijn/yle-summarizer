@@ -12,6 +12,8 @@ cors = CORS(app)
 def handle():
     request_json = request.get_json()
     text = request_json.get('data')
+    if len(text.split()) < 75:
+        return text
     summary = summarize(text, 75)
     return summary
 

@@ -7,4 +7,4 @@ A Flask backend serving automatically generated summaries of news articles from 
 
 #### Summarization
 
-For generating summaries, I have implemented [Nenkova & Vanderwende's SumBasic](https://www.cs.bgu.ac.il/~elhadad/nlp09/sumbasic.pdf). I took inspiration from the implementation of [Hardik Vala](https://github.com/hardik-vala/sum-basic), modifying it to select only sentences containing the most probably word as per the original description of the algorithm in addition to reordering sentences according to their original order of occurrence.
+For generating summaries, I have implemented [Nenkova & Vanderwende's SumBasic](https://www.cs.bgu.ac.il/~elhadad/nlp09/sumbasic.pdf). I took inspiration from the implementation of [Hardik Vala](https://github.com/hardik-vala/sum-basic), modifying it to select only sentences containing the current most probable word as per the original description of the algorithm in addition to reordering sentences according to their original order of occurrence.
