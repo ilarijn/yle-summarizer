@@ -62,13 +62,12 @@ def summarize(text, length):
 
     sentences = sent_tokenize(text)
 
-    summary = []
+    summary = {}
 
-    while len(sentences) > 0 and wordcount(summary) < length:
+    while len(sentences) > 0 and sum(wordcount(sent) for sent in summary.keys()) < length:
 
         max_prob, max_sentence = 0.0, None
         max_word = max(probabilities.items(), key=operator.itemgetter(1))[0]
-        print(max_word)
 
         for i, sent in enumerate(sentences):
 
@@ -78,16 +77,18 @@ def summarize(text, length):
             stemmed_sentence = [stemmer.stem(w) for w in word_tokenize(sent)]
 
             if max_prob < prob and max_word in stemmed_sentence:
-                max_prob, max_sentence = prob, sent
+                max_prob, max_sentence = prob, [sent, i]
 
-        summary.append(max_sentence)
-        sentences.remove(max_sentence)
+        summary[max_sentence[0]] = max_sentence[1]
+        sentences.remove(max_sentence[0])
         stemmed_max = [stemmer.stem(w.lower()) for w in word_tokenize(
-            max_sentence) if w.lower() not in stop_words]
+            max_sentence[0]) if w.lower() not in stop_words]
 
         for w in stemmed_max:
             probabilities[w] = probabilities[w] ** 2
 
     # Account for sentence position
+    result = [sentence for sentence, index in sorted(
+        summary.items(), key=lambda item: item[1])]
 
-    return " ".join(summary)
+    return " ".join(result)
