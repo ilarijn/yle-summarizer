@@ -1,4 +1,4 @@
-export const parseHtml = (html) => {
+export const stripHtml = (html) => {
   if (html.match("^[A-Za-z]")) {
     return html
   }
