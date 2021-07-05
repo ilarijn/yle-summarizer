@@ -18,6 +18,7 @@ def handle():
 
 @app.route('/')
 def serve():
+    print("JEES")
     return send_from_directory(app.static_folder, 'index.html')
 
 
