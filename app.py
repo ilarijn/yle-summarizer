@@ -12,13 +12,12 @@ cors = CORS(app)
 def handle():
     request_json = request.get_json()
     text = request_json.get('data')
-    summary = summarize(text, 90)
+    summary = summarize(text, 80)
     return summary
 
 
 @app.route('/')
 def serve():
-    print("JEES")
     return send_from_directory(app.static_folder, 'index.html')
 
 
