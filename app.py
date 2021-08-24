@@ -1,6 +1,6 @@
 from flask_cors import CORS, cross_origin
 from flask import Flask, send_from_directory, request
-from utils.lang import summarize
+from services.lang import summarize
 
 
 app = Flask(__name__, static_folder='client/build', static_url_path='')

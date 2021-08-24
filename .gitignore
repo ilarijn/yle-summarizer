@@ -7,7 +7,7 @@
 
 # testing
 */coverage
-/utils/*.txt
+/services/*.txt
 /sandbox
 
 # production
